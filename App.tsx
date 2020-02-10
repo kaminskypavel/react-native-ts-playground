@@ -9,21 +9,25 @@ export default function App() {
         const channelId = await notifee.createChannel({
             id: 'default',
             name: 'Default Channel',
+            sound: 'coin'
         });
 
         // Display a notification
         // https://notifee.app/react-native/docs/android/appearance
         await notifee.displayNotification({
-            title: '<p style="color: #4caf50;"><b>Styled HTMLTitle</span></p></b></p> &#128576;',
-            subtitle: '&#129395;',
+            title: '<p style="color: green;"><b>Styled HTMLTitle</span></p></b></p>',
             body:
                 'The <p style="text-decoration: line-through">body can</p> also be <p style="color: #ffffff; background-color: #9c27b0"><i>styled too</i></p> &#127881;!',
             android: {
                 channelId,
+                sound: 'coin',
+                ongoing: true,
+                vibrationPattern: [300, 500],
+                largeIcon: 'https://tinyfac.es/data/avatars/A7299C8E-CEFC-47D9-939A-3C8CA0EA4D13-200w.jpeg',
                 color: '#4caf50',
                 actions: [
                     {
-                        title: '<b>Dance</b> &#128111;',
+                        title: '<b>Dance</b> 💡',
                         pressAction: {id: 'dance'},
                     },
                     {
