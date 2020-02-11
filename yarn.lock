@@ -1227,24 +1227,39 @@
     wcwidth "^1.0.1"
     ws "^1.1.0"
 
-"@react-native-firebase/app-types@6.3.1":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.3.1.tgz#a6fbf16f928841b6e6d68e17853ee9f4e43bc172"
-  integrity sha512-JTPgl3jYZ7IRwEn8mXKJWIdOCo1zbMm/oPHWt+pxlywj/tVx8So6jywgE4prURxYBMvSCEDusfm3vL/Bo86+Jw==
+"@react-native-firebase/app-types@6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.3.2.tgz#49be37c332d020b45ead4ffb1708d839d76c6751"
+  integrity sha512-POY3EwNvo0bswEBxMdl7ZDVMS+22N5kyrWKozRXDp+1VtNoKanmJJq8j5OML7aiPClLm2cw6baVn/x0+Lc7XPA==
 
-"@react-native-firebase/app@^6.3.1":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-6.3.1.tgz#9fe693aaa9b73510dfd5b4a61b5bcc0b8d009852"
-  integrity sha512-JRsDEea4IXSrqEcRnf6JJE/lpIQR+cOBg3xW56Rn1hvF0hLBlLJ+CElMZ9KpVaH5Fn+ad8t37qMj3rv1lqjLlA==
+"@react-native-firebase/app@^6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-6.3.2.tgz#069aea7a0b30997779f5906c2f4229262b18cb91"
+  integrity sha512-UQVM1tb4b1uf5sKeNCz9B9jowAlS8kXFz8dVQ9wYdqpR7eb+N8xtEocEgX+RDHdiTTEOmEJACUiRfUln+I0dsg==
   dependencies:
-    "@react-native-firebase/app-types" "6.3.1"
+    "@react-native-firebase/app-types" "6.3.2"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/messaging@^6.3.1":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-6.3.1.tgz#e91c9a48783369bfba535ca327c66bd009d520b9"
-  integrity sha512-zqIUECAxW/lp/EBStQIdTdRz1JMW3d71As1yBgPYh3ZwmVpfSEPPy6U59BVlY98Eg5Roo1qvARN8kVWKI9PKOA==
+"@react-native-firebase/auth@^6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-6.3.2.tgz#34d209b7a191ac6fdca0a21d9dea79def92daf6d"
+  integrity sha512-sRDgL3oh5bkLQLdZvbgafmd7mUEjdgFnSdDKrgelD44DVmgu4w7zxb+HPuS8OFYVh5WrGfgjUmzl777pnuewcg==
+
+"@react-native-firebase/firestore@^6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-6.3.2.tgz#f86633fc3d30a26dd952c4372db853e877f6a3dc"
+  integrity sha512-rmRHbCLPT52cc7BfUZ8uqQ2qZwmYm4yRmxGYSqYd4iOsAd7xpKfb8gQ/uV9TY1E3QdTST2apahRGe6x3bgsBIg==
+
+"@react-native-firebase/functions@^6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/functions/-/functions-6.3.2.tgz#80c73a56d434331d19f5c7116756bf6acac26537"
+  integrity sha512-iulvaJvms7DiHseDbCKYIlr184ebeW+uC8I4LOYhy83D4575oGfX32Eo9FaYbs6wsbZLbWg+oDGDwuXs4Yl7Xg==
+
+"@react-native-firebase/messaging@^6.3.2":
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-6.3.2.tgz#052c799c4a1696b65ceeaf76600399a798c1f3a5"
+  integrity sha512-hRuDFtiQvUeWZJVM9rcY/ZzeRyEJIzkQOBn6DZ+JkoFdBfFBCmec51IialMpqNHRU4W4MiyKe8IqMs+DUrazvA==
 
 "@types/babel__core@^7.1.0":
   version "7.1.3"

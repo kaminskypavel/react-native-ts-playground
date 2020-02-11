@@ -3,6 +3,7 @@ import {Platform, Text} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import notifee from "@notifee/react-native";
 import styled from "styled-components/native"
+import firestore from '@react-native-firebase/firestore';
 
 const RequestButton = styled.Button({
     margin: 20
@@ -71,11 +72,21 @@ export const onMessageReceived = async (message) => {
 export default function App() {
     const [token, setToken] = useState("NO-TOKEN");
 
+    const addTokenToFireStore = async (token: string) => {
+        await firestore()
+            .collection('users')
+            .doc('test-user')
+            .set({
+                token
+            });
+
+    }
     const getToken = async () => {
         console.log(new Date(), 'getting token');
         const fcmToken = await messaging().getToken();
         setToken(fcmToken);
         console.log(fcmToken);
+        await addTokenToFireStore(fcmToken);
     };
 
     return (
