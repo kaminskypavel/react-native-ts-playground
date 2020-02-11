@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+import {Platform, Text} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import styled from "styled-components/native"
-
-async function registerAppWithFCM() {
-    await messaging().registerForRemoteNotifications();
-}
+import notifee from "@notifee/react-native"
 
 const RequestButton = styled.Button({
-    marginTop: "20px",
-    marginBottom: "1px"
+    margin: 20
 });
 
 const RequestTokenView = styled.Text({
@@ -17,6 +13,19 @@ const RequestTokenView = styled.Text({
     padding: 30
 });
 
+const Container = styled.View({
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+});
+
+// IOS RELATED
+async function registerAppWithFCM() {
+    await messaging().registerForRemoteNotifications();
+}
+
+// IOS RELATED
 async function requestPermission() {
     const granted = messaging().requestPermission();
 
@@ -27,9 +36,6 @@ async function requestPermission() {
     }
 }
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-});
 
 export default function App() {
     const [token, setToken] = useState("NO-TOKEN");
@@ -41,34 +47,57 @@ export default function App() {
         console.log(fcmToken);
     };
 
-    useEffect(() => {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
-            console.log('FCM Message Data:', remoteMessage.data);
-
-            // Update a users messages list using AsyncStorage
-            const currentMessages = await AsyncStorage.getItem('messages') || "[]";
-            const messageArray = JSON.parse(currentMessages);
-            messageArray.push(remoteMessage.data);
-            await AsyncStorage.setItem('messages', JSON.stringify(messageArray));
+    const onMessageReceived = async (message) => {
+        const channelId = await notifee.createChannel({
+            id: 'orders',
+            name: 'Orders',
         });
 
-        return unsubscribe
+        // Display a notification
+        // https://notifee.app/react-native/docs/android/appearance
+        await notifee.displayNotification({
+            title: '<p style="color: green;"><b>Styled HTMLTitle</span></p></b></p>',
+            body: JSON.stringify(message.data),
+            android: {
+                channelId,
+                // ongoing: true,
+                largeIcon: 'https://tinyfac.es/data/avatars/A7299C8E-CEFC-47D9-939A-3C8CA0EA4D13-200w.jpeg',
+                color: '#4caf50',
+                actions: [
+                    {
+                        title: 'Reply 📝',
+                        pressAction: {id: 'reply'},
+                        input: {
+                            allowFreeFormInput: true, // set to false
+                            choices: ['Yes', 'No', 'Maybe'],
+                            placeholder: 'Reply to Sarah...',
+                        },
+                    }
+                ],
+            },
+        });
+    };
+
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async (message) => {
+            console.log(`onMessage`, message.data);
+            await onMessageReceived(message);
+        });
+
+        messaging().setBackgroundMessageHandler(async (message) => {
+            console.log(`background`, message.data);
+            await onMessageReceived(message);
+        });
+
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
+        <Container>
+            <Text>{Platform.OS} {Platform.Version}</Text>
             <RequestButton title={"Request Token"} onPress={() => getToken()}/>
             <RequestTokenView> {token}</RequestTokenView>
-        </View>
+            <RequestButton title={"Local Notification"} onPress={() => onMessageReceived(null)}/>
+        </Container>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
