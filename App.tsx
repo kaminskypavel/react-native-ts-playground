@@ -4,12 +4,20 @@ import messaging from '@react-native-firebase/messaging';
 import notifee from "@notifee/react-native";
 import styled from "styled-components/native"
 import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
+const RequestButtonView = styled.View({
+    marginBottom: 20,
+    borderColor: 'rgba(182,28,0,0.1)',
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+});
 const RequestButton = styled.Button({
-    margin: 20
+    margin: 20,
 });
 
-const RequestTokenView = styled.Text({
+
+const DebugText = styled.Text({
     color: 'red',
     padding: 30
 });
@@ -71,6 +79,7 @@ export const onMessageReceived = async (message) => {
 
 export default function App() {
     const [token, setToken] = useState("NO-TOKEN");
+    const [functionResult, setFunctionResult] = useState("");
 
     const addTokenToFireStore = async (token: string) => {
         await firestore()
@@ -92,9 +101,26 @@ export default function App() {
     return (
         <Container>
             <Text>{Platform.OS} {Platform.Version}</Text>
-            <RequestButton title={"Request Token"} onPress={() => getToken()}/>
-            <RequestTokenView> {token}</RequestTokenView>
-            <RequestButton title={"Local Notification"} onPress={() => onMessageReceived({data: {some: "data"}})}/>
+            <RequestButton color="#f194ff" title={"Request Token"} onPress={() => getToken()}/>
+            <DebugText> {token}</DebugText>
+            <RequestButtonView>
+                <RequestButton title={"Local Notification"} onPress={async () => {
+                    setFunctionResult("No Function Called. Local");
+                    await onMessageReceived({data: {some: "data"}})
+                }}/>
+            </RequestButtonView>
+            <RequestButtonView>
+                <RequestButton title={"FCM Notification"} onPress={async () => {
+                    const success = await functions().httpsCallable('pushToTest')({
+                        timeout: 0
+                    });
+
+                    setFunctionResult(success.data);
+                    await onMessageReceived({data: {some: "data"}})
+                }}/>
+            </RequestButtonView>
+            <DebugText> {functionResult}</DebugText>
+
         </Container>
     );
 }
