@@ -18,7 +18,8 @@ const RequestButton = styled.Button({
 
 
 const DebugText = styled.Text({
-    color: 'red',
+    color: 'black',
+    fontSize: 20,
     padding: 30
 });
 
@@ -79,7 +80,7 @@ export const onMessageReceived = async (message) => {
 
 export default function App() {
     const [token, setToken] = useState("NO-TOKEN");
-    const [functionResult, setFunctionResult] = useState("");
+    const [functionResult, setFunctionResult] = useState(null);
 
     const addTokenToFireStore = async (token: string) => {
         await firestore()
@@ -111,12 +112,32 @@ export default function App() {
             </RequestButtonView>
             <RequestButtonView>
                 <RequestButton title={"FCM Notification"} onPress={async () => {
-                    const success = await functions().httpsCallable('pushToTest')({
-                        timeout: 0
+                    setFunctionResult("sending...");
+                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                        timeout: 0,
                     });
-
-                    setFunctionResult(success.data);
-                    await onMessageReceived({data: {some: "data"}})
+                    console.log(fcmResult);
+                    setFunctionResult(JSON.stringify(fcmResult));
+                }}/>
+            </RequestButtonView>
+            <RequestButtonView>
+                <RequestButton title={"FCM Delayed (5s) Notification"} onPress={async () => {
+                    setFunctionResult("sending...");
+                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                        timeout: 5,
+                    });
+                    console.log(fcmResult);
+                    setFunctionResult(JSON.stringify(fcmResult));
+                }}/>
+            </RequestButtonView>
+            <RequestButtonView>
+                <RequestButton title={"FCM Delayed (10s) Notification"} onPress={async () => {
+                    setFunctionResult("sending...");
+                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                        timeout: 10,
+                    });
+                    console.log(fcmResult);
+                    setFunctionResult(JSON.stringify(fcmResult));
                 }}/>
             </RequestButtonView>
             <DebugText> {functionResult}</DebugText>

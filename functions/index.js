@@ -10,22 +10,23 @@ const sendTestNotification = async (timeout) => new Promise(res => {
                 .firestore()
                 .collection("users")
                 .doc(`test-user`)
-                .get()
+                .get();
 
             const {token, notification} = userRef.data();
-            console.log('sending', token, notification);
+            console.log('sending to FCM', token, notification);
             const response = await admin.messaging().sendToDevice(token, {
                 notification
             });
 
-            console.log('fcm response', response);
+            console.log('FCM response', response);
             res();
         }, timeout * 1000)
     }
 );
 
 exports.pushToTest = functions.https.onCall(async (data, context) => {
-    const {timeout = 0} = data.timeout;
+    const {timeout = 0} = data;
+    console.log(`notification request in ${timeout}`);
     await sendTestNotification(timeout);
     return {status: "ok", timeout}
 });
