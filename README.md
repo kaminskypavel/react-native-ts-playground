@@ -7,4 +7,4 @@
 
 ### Navigation
 
-![](assets/screen-navigation.mp4)
+![](assets/screen-navigation.gif)
