@@ -5,6 +5,7 @@ import notifee from "@notifee/react-native";
 import styled from "styled-components/native"
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
+import {NavigationContainer} from '@react-navigation/native';
 
 const RequestButtonView = styled.View({
     marginBottom: 20,
@@ -100,49 +101,52 @@ export default function App() {
     };
 
     return (
-        <Container>
-            <Text>{Platform.OS} {Platform.Version}</Text>
-            <RequestButton color="#f194ff" title={"Request Token"} onPress={() => getToken()}/>
-            <DebugText> {token}</DebugText>
-            <RequestButtonView>
-                <RequestButton title={"Local Notification"} onPress={async () => {
-                    setFunctionResult("No Function Called. Local");
-                    await onMessageReceived({data: {some: "data"}})
-                }}/>
-            </RequestButtonView>
-            <RequestButtonView>
-                <RequestButton title={"FCM Notification"} onPress={async () => {
-                    setFunctionResult("sending...");
-                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
-                        timeout: 0,
-                    });
-                    console.log(fcmResult);
-                    setFunctionResult(JSON.stringify(fcmResult));
-                }}/>
-            </RequestButtonView>
-            <RequestButtonView>
-                <RequestButton title={"FCM Delayed (5s) Notification"} onPress={async () => {
-                    setFunctionResult("sending...");
-                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
-                        timeout: 5,
-                    });
-                    console.log(fcmResult);
-                    setFunctionResult(JSON.stringify(fcmResult));
-                }}/>
-            </RequestButtonView>
-            <RequestButtonView>
-                <RequestButton title={"FCM Delayed (10s) Notification"} onPress={async () => {
-                    setFunctionResult("sending...");
-                    const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
-                        timeout: 10,
-                    });
-                    console.log(fcmResult);
-                    setFunctionResult(JSON.stringify(fcmResult));
-                }}/>
-            </RequestButtonView>
-            <DebugText> {functionResult}</DebugText>
+        <NavigationContainer>
 
-        </Container>
+            <Container>
+                <Text>{Platform.OS} {Platform.Version}</Text>
+                <RequestButton color="#f194ff" title={"Request Token"} onPress={() => getToken()}/>
+                <DebugText> {token}</DebugText>
+                <RequestButtonView>
+                    <RequestButton title={"Local Notification"} onPress={async () => {
+                        setFunctionResult("No Function Called. Local");
+                        await onMessageReceived({data: {some: "data"}})
+                    }}/>
+                </RequestButtonView>
+                <RequestButtonView>
+                    <RequestButton title={"FCM Notification"} onPress={async () => {
+                        setFunctionResult("sending...");
+                        const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                            timeout: 0,
+                        });
+                        console.log(fcmResult);
+                        setFunctionResult(JSON.stringify(fcmResult));
+                    }}/>
+                </RequestButtonView>
+                <RequestButtonView>
+                    <RequestButton title={"FCM Delayed (5s) Notification"} onPress={async () => {
+                        setFunctionResult("sending...");
+                        const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                            timeout: 5,
+                        });
+                        console.log(fcmResult);
+                        setFunctionResult(JSON.stringify(fcmResult));
+                    }}/>
+                </RequestButtonView>
+                <RequestButtonView>
+                    <RequestButton title={"FCM Delayed (10s) Notification"} onPress={async () => {
+                        setFunctionResult("sending...");
+                        const {data: fcmResult} = await functions().httpsCallable('pushToTest')({
+                            timeout: 10,
+                        });
+                        console.log(fcmResult);
+                        setFunctionResult(JSON.stringify(fcmResult));
+                    }}/>
+                </RequestButtonView>
+                <DebugText> {functionResult}</DebugText>
+
+            </Container>
+        </NavigationContainer>
     );
 }
 
