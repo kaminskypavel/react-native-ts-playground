@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 import {AppRegistry} from 'react-native';
-import App, {onMessageReceived} from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
+import App from "./src/App";
+import {onMessageReceived} from "./src/Screens/Notifications";
 
 
 
