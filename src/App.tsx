@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from "@react-navigation/stack";
 import {Button, Text, View} from "react-native";
 import NotificationsScreen from "./Screens/Notifications";
-
+import randomColor from "randomcolor";
 const Stack = createStackNavigator();
 
 function HomeScreen({ navigation }) {
@@ -12,19 +12,25 @@ function HomeScreen({ navigation }) {
             <Text>Home Screen</Text>
             <Button
                 title="Go to Details"
-                onPress={() => navigation.navigate('Notifications')}
+                onPress={() => navigation.navigate('Details')}
             />
         </View>
     );
 }
 
-function DetailsScreen() {
+function DetailsScreen({ navigation }) {
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'
+        ,backgroundColor : randomColor()}}>
             <Text>Details Screen</Text>
+            <Button
+                title="Go to Details... again"
+                onPress={() => navigation.push('Details')}
+            />
         </View>
     );
 }
+
 
 export default function App() {
     return (
