@@ -49,8 +49,11 @@ export default (props) => {
                                        case 'home':
                                            return <AntIcons name={'home'} size={size} color={color}/>;
                                        case 'notifications':
-                                           return <Ionicons name={'ios-notifications'} size={size}
-                                                            color={color}/>;
+                                           return <IconWithBadge name={'ios-notifications'}
+                                                                 {...props}
+                                                                 badgeCount={3}
+                                                                 size={size}
+                                                                 color={color} />;
                                        case 'details':
                                            return <MaterialIcons name={'details'} size={size}
                                                                  color={color}/>;
@@ -72,5 +75,6 @@ export default (props) => {
         <Tab.Screen name="Home" component={HomeScreen}/>
         <Tab.Screen name="Details" component={DetailsScreen}/>
         <Tab.Screen name="Notifications" component={NotificationsScreen}/>
+
     </Tab.Navigator>);
 }
