@@ -42,7 +42,6 @@ export default (props) => {
     return (<Tab.Navigator initialRouteName="Home"
                            screenOptions={({route}) => ({
                                tabBarIcon: ({focused, color, size}) => {
-                                   console.log(route.name);
                                    let icon;
 
                                    switch (route.name.toLowerCase()) {
