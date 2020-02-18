@@ -1,8 +1,12 @@
+import {createStackNavigator} from "@react-navigation/stack";
 import {Button, Text, View} from "react-native";
 import randomColor from "randomcolor";
 import React from "react";
+import HomeScreen from "../HomeScreen";
 
-export default function DetailsScreen({navigation}) {
+const Stack = createStackNavigator();
+
+function DetailsScreen({navigation}) {
     return (
         <View style={{
             flex: 1, alignItems: 'center', justifyContent: 'center'
@@ -15,4 +19,12 @@ export default function DetailsScreen({navigation}) {
             />
         </View>
     );
+}
+
+export default function () {
+    return <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="Details" component={DetailsScreen}/>
+    </Stack.Navigator>
+
 }
